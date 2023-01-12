@@ -1,4 +1,4 @@
 package com.igor.caloriescalculator.model;
 
-public class MealClassification {
+public enum MealClassification {
 }
