@@ -6,7 +6,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
+
+import com.igor.caloriescalculator.adapters.HourSpinnerAdapter;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -15,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView tvSelectedDate;
     private ImageView ivShowDatePicker;
     private DatePicker dp;
+    private Spinner spHour;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
         this.tvSelectedDate = findViewById(R.id.tv_selected_date);
         this.ivShowDatePicker = findViewById(R.id.iv_show_date_picker);
         this.dp = findViewById(R.id.dp);
+        this.spHour = findViewById(R.id.sp_hour);
+        spHour.setAdapter(new HourSpinnerAdapter(this,  new ArrayList<>(Arrays.asList("1 hora","2 horas","3 horas"))));
     }
 
     private void setEvents(){

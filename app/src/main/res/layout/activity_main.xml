@@ -135,8 +135,15 @@
         <TextView
             android:text="@string/injestion_hour"
             android:textSize="24sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+
+        <Spinner
+            android:id="@+id/sp_hour"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"/>
 
 
     </LinearLayout>
