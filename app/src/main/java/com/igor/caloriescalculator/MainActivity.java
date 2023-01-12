@@ -45,19 +45,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showOrHideDatePicker(){
-        if(this.dp.getVisibility() == View.VISIBLE) {
-            this.tvDatePrompt.setVisibility(View.VISIBLE);
-            this.tvSelectedDate.setVisibility(View.VISIBLE);
-            this.ivShowDatePicker.setVisibility(View.VISIBLE);
-            this.dp.setVisibility(View.GONE);
-        }
-        else {
-            this.tvDatePrompt.setVisibility(View.GONE);
-            this.tvSelectedDate.setVisibility(View.GONE);
-            this.ivShowDatePicker.setVisibility(View.GONE);
-            this.dp.setVisibility(View.VISIBLE);
-        }
+        if(this.dp.getVisibility() == View.VISIBLE) setDateFormVisible(View.VISIBLE);
+        else setDateFormVisible(View.GONE);
+    }
 
+    private void setDateFormVisible(int visibility){
+        this.tvDatePrompt.setVisibility(visibility);
+        this.tvSelectedDate.setVisibility(visibility);
+        this.ivShowDatePicker.setVisibility(visibility);
+        int dpVisibility = visibility == View.GONE ? View.VISIBLE : View.GONE;
+        this.dp.setVisibility(dpVisibility);
     }
 
     private void setSelectedDate(int year, int monthOfYear, int dayOfMonth){
