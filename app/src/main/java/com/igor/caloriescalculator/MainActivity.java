@@ -37,6 +37,11 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) { showOrHideDatePicker(); }
                     });
+        this.dp.setOnDateChangedListener(new DatePicker.OnDateChangedListener() {
+            @Override
+            public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                setSelectedDate(year, monthOfYear, dayOfMonth);}
+            });
     }
 
     private void showOrHideDatePicker(){
@@ -53,5 +58,11 @@ public class MainActivity extends AppCompatActivity {
             this.dp.setVisibility(View.VISIBLE);
         }
 
+    }
+
+    private void setSelectedDate(int year, int monthOfYear, int dayOfMonth){
+        String date = dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
+        this.tvSelectedDate.setText(date);
+        showOrHideDatePicker();
     }
 }
