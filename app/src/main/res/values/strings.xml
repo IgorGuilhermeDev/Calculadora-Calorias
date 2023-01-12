@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">CaloriesCalculator</string>
+
+    <string name="calories_limit">Limite de calorias: %s</string>
+    <string name="food_name">Nome:</string>
+    <string name="injestion_date">Data:</string>
+    <string name="injestion_hour">Hora:</string>
+    <string name="food_type">Refeição:</string>
+
+
 </resources>
