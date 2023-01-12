@@ -10,9 +10,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.igor.caloriescalculator.adapters.HourSpinnerAdapter;
+import com.igor.caloriescalculator.data_mock.ListHours;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         this.ivShowDatePicker = findViewById(R.id.iv_show_date_picker);
         this.dp = findViewById(R.id.dp);
         this.spHour = findViewById(R.id.sp_hour);
-        spHour.setAdapter(new HourSpinnerAdapter(this,  new ArrayList<>(Arrays.asList("1 hora","2 horas","3 horas"))));
+        spHour.setAdapter(new HourSpinnerAdapter(this,  new ArrayList<>(ListHours.getListHours())));
     }
 
     private void setEvents(){
