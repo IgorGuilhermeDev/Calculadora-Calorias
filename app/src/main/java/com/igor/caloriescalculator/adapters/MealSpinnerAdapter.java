@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.igor.caloriescalculator.R;
-import com.igor.caloriescalculator.model.MealClassification;
+import com.igor.caloriescalculator.model.enums.MealClassification;
 
 import java.util.ArrayList;
 import java.util.Arrays;
