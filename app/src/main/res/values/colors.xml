@@ -9,4 +9,6 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="default_button_text_color">#48BEFF</color>
+    <color name="toast_error_color">#FF0000</color>,
+    <color name="toast_warning_color">#E8E51A</color>
 </resources>

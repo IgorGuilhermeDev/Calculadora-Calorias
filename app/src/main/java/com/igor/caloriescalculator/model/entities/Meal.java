@@ -17,6 +17,13 @@ public class Meal {
 
     }
 
+    public Meal(String name, LocalDateTime injestionDate, MealClassification mealClassificaion, Double foodCalories) {
+        this.name = name;
+        this.injestionDate = injestionDate;
+        this.mealClassificaion = mealClassificaion;
+        this.foodCalories = foodCalories;
+    }
+
     public Meal(Integer id,String name, LocalDateTime injestionDate, MealClassification mealClassificaion, Double foodCalories) {
         this.id = id;
         this.name = name;
@@ -78,4 +85,13 @@ public class Meal {
         return Objects.hash(id);
     }
 
+    @Override
+    public String toString() {
+        return "Meal{" +
+                "name='" + name + '\'' +
+                ", injestionDate=" + injestionDate +
+                ", mealClassificaion=" + mealClassificaion +
+                ", foodCalories=" + foodCalories +
+                '}';
+    }
 }

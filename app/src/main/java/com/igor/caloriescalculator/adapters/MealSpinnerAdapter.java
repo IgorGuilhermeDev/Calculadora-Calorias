@@ -32,8 +32,7 @@ public class MealSpinnerAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
-
-        return position;
+        return this.classifications.get(position);
     }
 
     @Override

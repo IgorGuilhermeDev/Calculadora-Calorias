@@ -4,10 +4,10 @@ public class DbScheme {
 
     public static final String DB_NAME = "calories_calculator";
     public static final int VERSION = 1;
-    public static final String SQL_CREATE_TABLES = Meal.SQL_CREATE;
-    public static final String SQL_DROP_TABLES = Meal.SQL_DROP;
+    public static final String SQL_CREATE_TABLES = MealScheme.SQL_CREATE;
+    public static final String SQL_DROP_TABLES = MealScheme.SQL_DROP;
 
-    public static class Meal {
+    public static class MealScheme {
         public static String TABLE_NAME = "meal";
         public static String TABLE_COLUMN_ID = "id";
         public static String TABLE_COLUMN_NAME = "name";
