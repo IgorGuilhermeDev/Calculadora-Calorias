@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -17,16 +16,17 @@ import com.igor.caloriescalculator.R;
 import com.igor.caloriescalculator.adapters.HourSpinnerAdapter;
 import com.igor.caloriescalculator.adapters.MealSpinnerAdapter;
 import com.igor.caloriescalculator.data_mock.ListHours;
+import com.igor.caloriescalculator.fragments.dialogs.DatePickerDialogFragment;
+import com.igor.caloriescalculator.fragments.interfaces.SetDateFromFragmentInterface;
 
 import java.util.ArrayList;
 
-public class RegisterMealFragment extends Fragment {
+public class RegisterMealFragment extends Fragment implements SetDateFromFragmentInterface {
 
     private TextView tvCaloriesLimit;
     private TextView tvDatePrompt;
     private TextView tvSelectedDate;
     private ImageView ivShowDatePicker;
-    private DatePicker dp;
     private Spinner spHour;
     private Spinner spClassifications;
 
@@ -53,7 +53,6 @@ public class RegisterMealFragment extends Fragment {
         this.tvDatePrompt = view.findViewById(R.id.tv_date_prompt);
         this.tvSelectedDate = view.findViewById(R.id.tv_selected_date);
         this.ivShowDatePicker = view.findViewById(R.id.iv_show_date_picker);
-        this.dp = view.findViewById(R.id.dp);
         this.spHour = view.findViewById(R.id.sp_hour);
         spHour.setAdapter(new HourSpinnerAdapter(getContext(),  new ArrayList<>(ListHours.getListHours())));
         this.spClassifications = view.findViewById(R.id.sp_classifications);
@@ -63,31 +62,19 @@ public class RegisterMealFragment extends Fragment {
     private void setEvents(){
         this.ivShowDatePicker.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) { showOrHideDatePicker(); }
-        });
-        this.dp.setOnDateChangedListener(new DatePicker.OnDateChangedListener() {
-            @Override
-            public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                setSelectedDate(year, monthOfYear, dayOfMonth);}
+            public void onClick(View v) { showDatePicker(); }
         });
     }
 
-    private void showOrHideDatePicker(){
-        if(this.dp.getVisibility() == View.VISIBLE) setDateFormVisible(View.VISIBLE);
-        else setDateFormVisible(View.GONE);
+    private void showDatePicker(){
+        DatePickerDialogFragment.setInterface(this);
+        DatePickerDialogFragment datePickerDialogFragment = new DatePickerDialogFragment(this.tvSelectedDate.getText().toString());
+        datePickerDialogFragment.show(getParentFragmentManager(), datePickerDialogFragment.getTag());
     }
 
-    private void setDateFormVisible(int visibility){
-        this.tvDatePrompt.setVisibility(visibility);
-        this.tvSelectedDate.setVisibility(visibility);
-        this.ivShowDatePicker.setVisibility(visibility);
-        int dpVisibility = visibility == View.GONE ? View.VISIBLE : View.GONE;
-        this.dp.setVisibility(dpVisibility);
-    }
 
-    private void setSelectedDate(int year, int monthOfYear, int dayOfMonth){
-        String date = dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
+    @Override
+    public void setDate(String date) {
         this.tvSelectedDate.setText(date);
-        showOrHideDatePicker();
     }
 }
