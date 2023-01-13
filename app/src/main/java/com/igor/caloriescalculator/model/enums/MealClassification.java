@@ -1,4 +1,4 @@
-package com.igor.caloriescalculator.model;
+package com.igor.caloriescalculator.model.enums;
 
 import com.igor.caloriescalculator.R;
 
