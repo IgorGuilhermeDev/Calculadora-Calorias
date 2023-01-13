@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -30,6 +31,7 @@ public class RegisterMealFragment extends Fragment implements SetDateFromFragmen
     private ImageView ivShowDatePicker;
     private Spinner spHour;
     private Spinner spClassifications;
+    private Button btRegister;
 
 
     public RegisterMealFragment(){
@@ -58,12 +60,20 @@ public class RegisterMealFragment extends Fragment implements SetDateFromFragmen
         spHour.setAdapter(new HourSpinnerAdapter(getContext(),  new ArrayList<>(ListHours.getListHours())));
         this.spClassifications = view.findViewById(R.id.sp_classifications);
         this.spClassifications.setAdapter(new MealSpinnerAdapter(getContext()));
+        this.btRegister = view.findViewById(R.id.bt_register);
     }
 
     private void setEvents(){
         this.ivShowDatePicker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) { showDatePicker(); }
+        });
+
+        this.btRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
         });
     }
 

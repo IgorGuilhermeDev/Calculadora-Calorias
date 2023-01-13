@@ -9,5 +9,7 @@
     <string name="food_value">Calorias:</string>
     <string name="food_value_hint">Ex: 300</string>
 
+    <string name="bt_register">Cadastrar</string>
+
 
 </resources>
