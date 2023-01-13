@@ -10,6 +10,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.igor.caloriescalculator.adapters.HourSpinnerAdapter;
+import com.igor.caloriescalculator.adapters.MealSpinnerAdapter;
 import com.igor.caloriescalculator.data_mock.ListHours;
 
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageView ivShowDatePicker;
     private DatePicker dp;
     private Spinner spHour;
+    private Spinner spClassifications;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
         this.dp = findViewById(R.id.dp);
         this.spHour = findViewById(R.id.sp_hour);
         spHour.setAdapter(new HourSpinnerAdapter(this,  new ArrayList<>(ListHours.getListHours())));
+        this.spClassifications = findViewById(R.id.sp_classifications);
+        this.spClassifications.setAdapter(new MealSpinnerAdapter(this));
     }
 
     private void setEvents(){

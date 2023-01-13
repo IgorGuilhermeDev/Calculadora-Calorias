@@ -49,7 +49,7 @@ public class MealSpinnerAdapter extends BaseAdapter {
         TextView tvItemName = rootView.findViewById(R.id.tv_item_name);
         ImageView ivImgItem = rootView.findViewById(R.id.iv_img_item);
         tvItemName.setText(this.classifications.get(position).getName());
-        ivImgItem.setImageResource(R.drawable.clock_icon);
+        ivImgItem.setImageResource(this.classifications.get(position).getImageId());
         return rootView;
     }
 }

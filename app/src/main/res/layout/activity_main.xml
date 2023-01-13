@@ -47,7 +47,6 @@
         app:layout_constraintLeft_toLeftOf="@id/guideline2"
         app:layout_constraintRight_toRightOf="parent"/>
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -143,7 +142,6 @@
 
             <Spinner
                 android:id="@+id/sp_hour"
-                android:theme="@style/ThemeOverlay.AppCompat.Light"
                 android:layout_width="200dp"
                 android:layout_height="70dp"
                 android:dropDownVerticalOffset="70dp"
@@ -153,23 +151,28 @@
 
         </LinearLayout>
 
-         <LinearLayout
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             android:layout_marginTop="24dp"
-             android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:orientation="horizontal"
+            android:gravity="center">
 
-             <TextView
-                 android:text="@string/food_type"
-                 android:textSize="24sp"
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"/>
+            <TextView
+                android:text="@string/food_type"
+                android:textSize="24sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
 
-             <Spinner
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"/>
+            <Spinner
+                android:id="@+id/sp_classifications"
+                android:layout_width="200dp"
+                android:layout_height="70dp"
+                android:background="@drawable/spinner_shape"
+                android:layout_weight="0"/>
 
-         </LinearLayout>
+        </LinearLayout>
 
 
         <LinearLayout

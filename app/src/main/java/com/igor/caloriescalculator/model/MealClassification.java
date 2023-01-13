@@ -13,15 +13,20 @@ public enum MealClassification {
     OTHER("Outro", R.drawable.pizza_icon);
 
     private String name;
-    private int imageId;
+    private Integer imageId;
 
     private MealClassification(String name, int imageId){
         this.name = name;
+        this.imageId = imageId;
 
     }
 
     public String getName(){
         return this.name;
+    }
+
+    public Integer getImageId (){
+        return imageId;
     }
 
 }
