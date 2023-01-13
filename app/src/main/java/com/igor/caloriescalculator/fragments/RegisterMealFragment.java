@@ -44,6 +44,7 @@ public class RegisterMealFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.register_meal_fragment, container, false);
         initializeUiComponents(view);
+        setEvents();
         return view;
     }
 
