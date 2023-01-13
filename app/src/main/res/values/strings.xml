@@ -6,6 +6,8 @@
     <string name="injestion_date">Data:</string>
     <string name="injestion_hour">Hora:</string>
     <string name="food_type">Refeição:</string>
+    <string name="food_value">Calorias:</string>
+    <string name="food_value_hint">Ex: 300</string>
 
 
 </resources>
