@@ -44,7 +44,7 @@ public class DatePickerDialogFragment extends DialogFragment {
 
 
     private void dataBinding(){
-        // 13/01/2023
+
         if(this.previusDate != null){
             int day = Integer.valueOf(this.previusDate.substring(0,2));
             int month = Integer.valueOf(this.previusDate.substring(3,5));

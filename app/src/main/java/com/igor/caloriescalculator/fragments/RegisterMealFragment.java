@@ -19,12 +19,13 @@ import com.igor.caloriescalculator.data_mock.ListHours;
 import com.igor.caloriescalculator.fragments.dialogs.DatePickerDialogFragment;
 import com.igor.caloriescalculator.fragments.interfaces.SetDateFromFragmentInterface;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class RegisterMealFragment extends Fragment implements SetDateFromFragmentInterface {
 
     private TextView tvCaloriesLimit;
-    private TextView tvDatePrompt;
     private TextView tvSelectedDate;
     private ImageView ivShowDatePicker;
     private Spinner spHour;
@@ -45,12 +46,12 @@ public class RegisterMealFragment extends Fragment implements SetDateFromFragmen
         View view = inflater.inflate(R.layout.register_meal_fragment, container, false);
         initializeUiComponents(view);
         setEvents();
+        dataBinding();
         return view;
     }
 
     private void initializeUiComponents(View view){
         this.tvCaloriesLimit = view.findViewById(R.id.tv_calories_limit);
-        this.tvDatePrompt = view.findViewById(R.id.tv_date_prompt);
         this.tvSelectedDate = view.findViewById(R.id.tv_selected_date);
         this.ivShowDatePicker = view.findViewById(R.id.iv_show_date_picker);
         this.spHour = view.findViewById(R.id.sp_hour);
@@ -70,6 +71,10 @@ public class RegisterMealFragment extends Fragment implements SetDateFromFragmen
         DatePickerDialogFragment.setInterface(this);
         DatePickerDialogFragment datePickerDialogFragment = new DatePickerDialogFragment(this.tvSelectedDate.getText().toString());
         datePickerDialogFragment.show(getParentFragmentManager(), datePickerDialogFragment.getTag());
+    }
+
+    private void dataBinding(){
+        this.tvSelectedDate.setText(LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
     }
 
 
