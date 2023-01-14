@@ -1,6 +1,5 @@
 package com.igor.caloriescalculator.fragments;
 
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +9,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
+
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,8 +25,6 @@ import com.igor.caloriescalculator.fragments.interfaces.SetDateFromFragmentInter
 import com.igor.caloriescalculator.model.controllers.RegisterMealFragmentController;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 

@@ -10,23 +10,30 @@ import com.igor.caloriescalculator.R;
 import com.igor.caloriescalculator.model.entities.Meal;
 import com.igor.caloriescalculator.model.enums.MealClassification;
 import com.igor.caloriescalculator.model.errors.RegisterMealValidations;
+import com.igor.caloriescalculator.model.repositories.MealRepository;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.zip.Inflater;
+import java.util.Vector;
+
 
 public class RegisterMealFragmentController {
 
     private Context context;
     private LayoutInflater inflater;
     private View currentView;
+    private MealRepository repository;
 
     public RegisterMealFragmentController(Context context, View currentView){
         this.context = context;
         this.currentView = currentView;
         this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        if(repository == null) repository = new MealRepository(this.context);
+
     }
 
     public void insertMeal(String foodName, String calories, Object mealClassification, String date, Object hour){
@@ -37,7 +44,9 @@ public class RegisterMealFragmentController {
             LocalDateTime localDateTime = formatDate(date, hour.toString());
             MealClassification classification = (MealClassification) mealClassification;
             Meal meal = new Meal(foodName, localDateTime, classification, Double.valueOf(calories));
-            Toast.makeText(this.context, meal.toString(), Toast.LENGTH_SHORT).show();
+            boolean isInserted = repository.insertMeal(meal);
+            Vector<Meal> meals = repository.selectAllTodayMeals(ZonedDateTime.of(LocalDateTime.now().with(LocalTime.MIDNIGHT), ZoneId.systemDefault()).toEpochSecond());
+            Toast.makeText(this.context, meals.toString(), Toast.LENGTH_SHORT).show();
         }
 
     }
