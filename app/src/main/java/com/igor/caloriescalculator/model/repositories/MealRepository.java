@@ -43,17 +43,17 @@ public class MealRepository {
         }
     }
 
-    public Vector<Meal> selectAllTodayMeals(long initialDate){
+    public Vector<Meal> selectAllTodayMeals(long initialDate, long finalDate){
         Vector<Meal> result = new Vector<>();
         try(ManagerDb db = new ManagerDb(this.context)){
-            String sql = "date >= ?";
+            String sql = "date >= ? and date <= ?";
 
             SQLiteDatabase tran = db.getReadableDatabase();
 
             Cursor tuplas = tran.query(DbScheme.MealScheme.TABLE_NAME,
                     DbScheme.MealScheme.COLUMNS,
                     sql,
-                    new String[]{initialDate+""}, null,
+                    new String[]{initialDate+"", finalDate+""}, null,
                     null, null);
 
             while(tuplas.moveToNext()){

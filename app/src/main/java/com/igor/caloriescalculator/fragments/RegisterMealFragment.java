@@ -57,9 +57,9 @@ public class RegisterMealFragment extends Fragment implements SetDateFromFragmen
         View view = inflater.inflate(R.layout.register_meal_fragment, container, false);
         initializeUiComponents(view);
         setEvents();
-        dataBinding();
         configSpinners();
         controller = new RegisterMealFragmentController(this.getContext(), View.inflate(getContext(), R.layout.register_meal_fragment, new LinearLayoutCompat(getContext())));
+        dataBinding();
         return view;
     }
 
@@ -105,6 +105,7 @@ public class RegisterMealFragment extends Fragment implements SetDateFromFragmen
 
     private void dataBinding(){
         this.tvSelectedDate.setText(LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+        this.tvCaloriesLimit.setText(this.controller.getCaloriesFromThisDay());
     }
 
     private void insertMeal(){

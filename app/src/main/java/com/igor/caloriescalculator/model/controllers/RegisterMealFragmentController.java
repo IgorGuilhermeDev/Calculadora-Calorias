@@ -44,9 +44,7 @@ public class RegisterMealFragmentController {
             LocalDateTime localDateTime = formatDate(date, hour.toString());
             MealClassification classification = (MealClassification) mealClassification;
             Meal meal = new Meal(foodName, localDateTime, classification, Double.valueOf(calories));
-            boolean isInserted = repository.insertMeal(meal);
-            Vector<Meal> meals = repository.selectAllTodayMeals(ZonedDateTime.of(LocalDateTime.now().with(LocalTime.MIDNIGHT), ZoneId.systemDefault()).toEpochSecond());
-            Toast.makeText(this.context, meals.toString(), Toast.LENGTH_SHORT).show();
+            repository.insertMeal(meal);
         }
 
     }
@@ -57,6 +55,25 @@ public class RegisterMealFragmentController {
         if(formatedHours.length() < 2) formatedHours = "0" + formatedHours;
         LocalTime localTime = LocalTime.parse(formatedHours+":00", DateTimeFormatter.ofPattern("HH:mm"));
         return LocalDateTime.of(localDate, localTime);
+    }
+
+    public String getCaloriesFromThisDay(){
+        Vector<Meal> meals = repository.selectAllTodayMeals(
+                ZonedDateTime.of(LocalDateTime.now().with(LocalTime.MIDNIGHT), ZoneId.systemDefault()).toEpochSecond(),
+                ZonedDateTime.of(LocalDateTime.now().with(LocalTime.NOON), ZoneId.systemDefault()).toEpochSecond()
+        );
+        return String.valueOf(sumCalories(meals));
+    }
+
+    private Double sumCalories(Vector<Meal> meals){
+        final double[] sum = {0.0};
+        meals.forEach(
+                (meal)->{
+                    sum[0] += meal.getFoodCalories();
+                }
+        );
+
+        return sum[0];
     }
 
 }
