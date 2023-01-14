@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import androidx.annotation.NonNull;
@@ -41,6 +42,7 @@ public class RegisterMealFragment extends Fragment implements SetDateFromFragmen
     private Button btRegister;
     private Button btVisualization;
     private RegisterMealFragmentController controller;
+    private final String LIMIT_CALORIES_REGEX = "[0-9]+\\.[0-9]+";
 
 
     public RegisterMealFragment(){
@@ -105,12 +107,15 @@ public class RegisterMealFragment extends Fragment implements SetDateFromFragmen
 
     private void dataBinding(){
         this.tvSelectedDate.setText(LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-        this.tvCaloriesLimit.setText(this.controller.getCaloriesFromThisDay());
+        updateCaloriesLimit();
     }
 
     private void insertMeal(){
-        controller.insertMeal(this.etName.getText().toString(), this.etCalories.getText().toString(),
+        boolean isSuccessful = controller.insertMeal(this.etName.getText().toString(), this.etCalories.getText().toString(),
                 this.spClassifications.getSelectedItem(), this.tvSelectedDate.getText().toString(), this.spHour.getSelectedItem());
+
+        if(isSuccessful) updateCaloriesLimit();
+
     }
 
 
@@ -125,6 +130,11 @@ public class RegisterMealFragment extends Fragment implements SetDateFromFragmen
                 .addToBackStack("main_screen").commit();
     }
 
+    private void updateCaloriesLimit(){
+        String auxText = this.tvCaloriesLimit.getText().toString();
+        auxText = auxText.replaceAll(LIMIT_CALORIES_REGEX,this.controller.getCaloriesFromThisDay());
+        this.tvCaloriesLimit.setText( auxText );
+    }
 
 
     @Override

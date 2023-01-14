@@ -36,7 +36,7 @@ public class RegisterMealFragmentController {
 
     }
 
-    public void insertMeal(String foodName, String calories, Object mealClassification, String date, Object hour){
+    public boolean insertMeal(String foodName, String calories, Object mealClassification, String date, Object hour){
         ViewGroup toastContainer = this.currentView.findViewById(R.id.container_toast);
         View toastStyle = this.inflater.inflate(R.layout.custom_toast, toastContainer);
 
@@ -44,8 +44,11 @@ public class RegisterMealFragmentController {
             LocalDateTime localDateTime = formatDate(date, hour.toString());
             MealClassification classification = (MealClassification) mealClassification;
             Meal meal = new Meal(foodName, localDateTime, classification, Double.valueOf(calories));
-            repository.insertMeal(meal);
+            boolean isInserted = repository.insertMeal(meal);
+            return isInserted;
+
         }
+        return false;
 
     }
 

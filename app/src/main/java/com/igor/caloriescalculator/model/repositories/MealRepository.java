@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.widget.Toast;
 
 import com.igor.caloriescalculator.db.DbScheme;
 import com.igor.caloriescalculator.db.ManagerDb;
@@ -30,7 +31,7 @@ public class MealRepository {
 
             values.put(DbScheme.MealScheme.TABLE_COLUMN_NAME, meal.getName());
             values.put(DbScheme.MealScheme.TABLE_COLUMN_DATE, ZonedDateTime.of(meal.getInjestionDate(), ZoneId.systemDefault()).toEpochSecond());
-            values.put(DbScheme.MealScheme.TABLE_COLUMN_FOOD_CLASSIFICATION, meal.getMealClassificaion().getName());
+            values.put(DbScheme.MealScheme.TABLE_COLUMN_FOOD_CLASSIFICATION, meal.getMealClassificaion().name());
             values.put(DbScheme.MealScheme.TABLE_COLUMN_FOOD_VALUE, meal.getFoodCalories());
 
             long id = database.insert(DbScheme.MealScheme.TABLE_NAME, null, values);
@@ -62,8 +63,8 @@ public class MealRepository {
                         tuplas.getString(1),
                         Instant.ofEpochMilli(tuplas.getLong(2))
                                 .atZone(ZoneId.systemDefault()).toLocalDateTime(),
-                        MealClassification.BREAKFAST,
-                        25.0
+                        MealClassification.valueOf(tuplas.getString(3)),
+                        tuplas.getDouble(4)
                 );
 
                result.add(meal);
