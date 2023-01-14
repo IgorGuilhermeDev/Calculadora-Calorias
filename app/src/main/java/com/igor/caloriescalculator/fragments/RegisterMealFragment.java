@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.igor.caloriescalculator.R;
 import com.igor.caloriescalculator.adapters.HourSpinnerAdapter;
@@ -38,6 +39,7 @@ public class RegisterMealFragment extends Fragment implements SetDateFromFragmen
     private Spinner spHour;
     private Spinner spClassifications;
     private Button btRegister;
+    private Button btVisualization;
     private RegisterMealFragmentController controller;
 
 
@@ -70,6 +72,7 @@ public class RegisterMealFragment extends Fragment implements SetDateFromFragmen
         this.spHour = view.findViewById(R.id.sp_hour);
         this.spClassifications = view.findViewById(R.id.sp_classifications);
         this.btRegister = view.findViewById(R.id.bt_register);
+        this.btVisualization = view.findViewById(R.id.bt_visualization);
     }
 
     private void setEvents(){
@@ -84,7 +87,15 @@ public class RegisterMealFragment extends Fragment implements SetDateFromFragmen
                 insertMeal();
             }
         });
+
+        this.btVisualization.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                toVisualizationScreen();
+            }
+        });
     }
+
 
     private void showDatePicker(){
         DatePickerDialogFragment.setInterface(this);
@@ -106,6 +117,13 @@ public class RegisterMealFragment extends Fragment implements SetDateFromFragmen
         this.spHour.setAdapter(new HourSpinnerAdapter(getContext(),  new ArrayList<>(ListHours.getListHours())));
         this.spClassifications.setAdapter(new MealSpinnerAdapter(getContext()));
     }
+
+    private void toVisualizationScreen() {
+        getActivity().getSupportFragmentManager()
+                .beginTransaction().replace(R.id.fragment_main, new VisualizationMealsFragment())
+                .addToBackStack("main_screen").commit();
+    }
+
 
 
     @Override

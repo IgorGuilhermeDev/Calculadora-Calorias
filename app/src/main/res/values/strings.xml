@@ -10,6 +10,7 @@
     <string name="food_value_hint">Ex: 300</string>
 
     <string name="bt_register">Cadastrar</string>
+    <string name="bt_visualization">Visualizar</string>
 
 
 </resources>
