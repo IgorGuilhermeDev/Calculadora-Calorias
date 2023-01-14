@@ -16,6 +16,7 @@ import com.igor.caloriescalculator.fragments.interfaces.SetDateFromFragmentInter
 public class DatePickerDialogFragment extends DialogFragment {
 
     private static SetDateFromFragmentInterface setDateInterface;
+    private static Integer chooseDatePicker;
     private DatePicker dpInjestionDate;
     private String previusDate;
 
@@ -26,6 +27,8 @@ public class DatePickerDialogFragment extends DialogFragment {
 
     public DatePickerDialogFragment(String previusDate){
         this.previusDate = previusDate;
+        chooseDatePicker = null;
+        setDateInterface = null;
     }
 
     @Nullable
@@ -62,7 +65,7 @@ public class DatePickerDialogFragment extends DialogFragment {
         });
     }
 
-    private void selectDateAndCloseDialog( int year, int monthOfYear, int dayOfMonth){
+    private void selectDateAndCloseDialog( int year, int monthOfYear, int dayOfMonth ){
         String strMonth;
         String strDay;
         if(monthOfYear < 10) strMonth = "0" + (monthOfYear + 1);
@@ -70,12 +73,21 @@ public class DatePickerDialogFragment extends DialogFragment {
         if(dayOfMonth < 10) strDay = "0" + (dayOfMonth);
         else strDay = "" + dayOfMonth;
 
-        setDateInterface.setDate(strDay + "/" + strMonth + "/" + year);
+        if(DatePickerDialogFragment.chooseDatePicker == null){
+            setDateInterface.setDate(strDay + "/" + strMonth + "/" + year);
+        }else{
+            setDateInterface.setDate(chooseDatePicker + " " + strDay + "/" + strMonth + "/" + year);
+        }
 
         this.dismiss();
     }
     public static void setInterface(SetDateFromFragmentInterface setDateFromFragmentInterface){
         DatePickerDialogFragment.setDateInterface = setDateFromFragmentInterface;
+
+    }
+
+    public static void setChooseDate(int idDatePicker){
+        DatePickerDialogFragment.chooseDatePicker = idDatePicker;
     }
 
 

@@ -100,8 +100,8 @@ public class RegisterMealFragment extends Fragment implements SetDateFromFragmen
 
 
     private void showDatePicker(){
-        DatePickerDialogFragment.setInterface(this);
         DatePickerDialogFragment datePickerDialogFragment = new DatePickerDialogFragment(this.tvSelectedDate.getText().toString());
+        DatePickerDialogFragment.setInterface(this);
         datePickerDialogFragment.show(getParentFragmentManager(), datePickerDialogFragment.getTag());
     }
 
