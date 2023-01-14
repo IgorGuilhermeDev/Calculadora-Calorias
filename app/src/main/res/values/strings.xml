@@ -9,6 +9,8 @@
     <string name="food_value">Calorias:</string>
     <string name="food_value_hint">Ex: 300</string>
 
+    <string name="intitial_date">Data inicial</string>
+    <string name="final_date">Data final</string>
     <string name="bt_register">Cadastrar</string>
     <string name="bt_visualization">Visualizar</string>
 
