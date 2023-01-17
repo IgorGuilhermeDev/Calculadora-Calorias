@@ -115,7 +115,6 @@ public class RegisterMealFragment extends Fragment implements SetDateFromFragmen
                 this.spClassifications.getSelectedItem(), this.tvSelectedDate.getText().toString(), this.spHour.getSelectedItem());
 
         if(isSuccessful) updateCaloriesLimit();
-
     }
 
 

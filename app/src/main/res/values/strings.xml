@@ -14,5 +14,7 @@
     <string name="bt_register">Cadastrar</string>
     <string name="bt_visualization">Visualizar</string>
 
+    <string name="bt_analytics">Estatísticas</string>
+
 
 </resources>

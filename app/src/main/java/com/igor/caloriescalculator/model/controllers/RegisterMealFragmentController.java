@@ -62,8 +62,8 @@ public class RegisterMealFragmentController {
 
     public String getCaloriesFromThisDay(){
         Vector<Meal> meals = repository.selectAllTodayMeals(
-                ZonedDateTime.of(LocalDateTime.now().with(LocalTime.MIDNIGHT), ZoneId.systemDefault()).toEpochSecond(),
-                ZonedDateTime.of(LocalDateTime.now().with(LocalTime.NOON), ZoneId.systemDefault()).toEpochSecond()
+                ZonedDateTime.of(LocalDateTime.now().with(LocalTime.MIN), ZoneId.systemDefault()).toEpochSecond(),
+                ZonedDateTime.of(LocalDateTime.now().with(LocalTime.MAX), ZoneId.systemDefault()).toEpochSecond()
         );
         return String.valueOf(sumCalories(meals));
     }

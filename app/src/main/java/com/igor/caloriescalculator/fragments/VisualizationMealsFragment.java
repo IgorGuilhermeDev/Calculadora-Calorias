@@ -78,8 +78,8 @@ public class VisualizationMealsFragment extends Fragment implements SetDateFromF
     private void configRecyclerView(){
         this.rvMeals.setHasFixedSize(true);
         this.rvMeals.setLayoutManager(new LinearLayoutManager(getContext()));
-        setRecyclerViewContent(ZonedDateTime.of(LocalDateTime.now().with(LocalTime.MIDNIGHT), ZoneId.systemDefault()).toEpochSecond(),
-                ZonedDateTime.of(LocalDateTime.now().with(LocalTime.NOON), ZoneId.systemDefault()).toEpochSecond() );
+        setRecyclerViewContent(ZonedDateTime.of(LocalDateTime.now().with(LocalTime.MIN), ZoneId.systemDefault()).toEpochSecond(),
+                ZonedDateTime.of(LocalDateTime.now().with(LocalTime.MAX), ZoneId.systemDefault()).toEpochSecond() );
 
     }
 
@@ -129,8 +129,8 @@ public class VisualizationMealsFragment extends Fragment implements SetDateFromF
         if(datePickerId.equals("1")) this.tvInitialDate.setText(date);
         else this.tvFinalDate.setText(date);
 
-        setRecyclerViewContent(stringDateToLong(this.tvInitialDate.getText().toString(), LocalTime.MIDNIGHT),
-                stringDateToLong(this.tvFinalDate.getText().toString(), LocalTime.NOON));
+        setRecyclerViewContent(stringDateToLong(this.tvInitialDate.getText().toString(), LocalTime.MIN),
+                stringDateToLong(this.tvFinalDate.getText().toString(), LocalTime.MAX));
 
     }
 
