@@ -14,8 +14,10 @@
     <string name="bt_register">Cadastrar</string>
     <string name="bt_visualization">Visualizar</string>
 
-    <string name="bt_analytics">Estatísticas</string>
+    <string name="bt_statistics">Estatísticas</string>
     <string name="bt_back">Voltar</string>
+
+    <string name="sum_of_calories">Calorias Totais: </string>
 
 
 </resources>

@@ -4,12 +4,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.igor.caloriescalculator.R;
 import com.igor.caloriescalculator.adapters.MealListAdapter;
 import com.igor.caloriescalculator.fragments.dialogs.DatePickerDialogFragment;
+import com.igor.caloriescalculator.fragments.dialogs.StatisticsDialogFragment;
 import com.igor.caloriescalculator.fragments.interfaces.SetDateFromFragmentInterface;
 import com.igor.caloriescalculator.model.repositories.MealRepository;
 
@@ -35,6 +37,8 @@ public class VisualizationMealsFragment extends Fragment implements SetDateFromF
     private TextView tvFinalDate;
     private ImageView ivInitialDatePicker;
     private ImageView ivFinalDatePicker;
+    private Button btStatistics;
+    private Button btBack;
 
     private final Integer ID_INITAL_DATE_PICKER = 1;
     private final Integer ID_FINAL_DATE_PICKER = 2;
@@ -71,6 +75,8 @@ public class VisualizationMealsFragment extends Fragment implements SetDateFromF
         this.ivFinalDatePicker = view.findViewById(R.id.iv_final_date_picker);
         this.tvInitialDate = view.findViewById(R.id.tv_initial_date);
         this.tvFinalDate = view.findViewById(R.id.tv_final_date);
+        this.btStatistics = view.findViewById(R.id.bt_statistics);
+        this.btBack = view.findViewById(R.id.bt_back);
 
 
     }
@@ -107,6 +113,12 @@ public class VisualizationMealsFragment extends Fragment implements SetDateFromF
                 showDatePicker(ID_FINAL_DATE_PICKER);
             }
         });
+
+        this.btStatistics.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showStatisticsPopUp();
+            }});
     }
 
     private void showDatePicker(int idDatePicker){
@@ -137,5 +149,11 @@ public class VisualizationMealsFragment extends Fragment implements SetDateFromF
     private long stringDateToLong(String date, LocalTime time){
         LocalDate formatedDate = LocalDate.parse(date, DateTimeFormatter.ofPattern(DATE_PATTERN));
         return ZonedDateTime.of(LocalDateTime.of(formatedDate,(time)), ZoneId.systemDefault()).toEpochSecond();
+    }
+
+    private void showStatisticsPopUp(){
+        DialogFragment dialogFragment = new StatisticsDialogFragment(this.tvInitialDate.getText().toString(),
+                this.tvFinalDate.getText().toString());
+        dialogFragment.show(getParentFragmentManager(), "dialog_statistics");
     }
 }

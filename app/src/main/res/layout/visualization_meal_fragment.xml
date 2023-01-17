@@ -23,9 +23,9 @@
           android:layout_weight="1"/>
 
       <Button
-          android:id="@+id/bt_analytics"
+          android:id="@+id/bt_statistics"
           style="@style/MyDeaultBorderlessButton"
-          android:text="@string/bt_analytics"
+          android:text="@string/bt_statistics"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginTop="5dp"
