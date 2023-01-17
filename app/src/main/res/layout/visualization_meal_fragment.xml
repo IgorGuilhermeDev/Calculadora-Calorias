@@ -5,16 +5,36 @@
     android:orientation="vertical">
 
 
-   <Button
-       android:id="@+id/bt_analytics"
-       style="@style/MyDeaultBorderlessButton"
-       android:text="@string/bt_analytics"
-       android:layout_width="wrap_content"
+   <LinearLayout
+       android:layout_width="match_parent"
        android:layout_height="wrap_content"
-       android:layout_marginTop="5dp"
-       android:layout_marginRight="5dp"
-       android:layout_marginBottom="5dp"
-       android:layout_gravity="end"/>
+       android:orientation="horizontal"
+       android:gravity="center_vertical">
+
+      <Button
+          android:id="@+id/bt_back"
+          android:text="@string/bt_back"
+          style="@style/MyDeaultBorderlessButton"
+          android:layout_marginTop="5dp"
+          android:layout_marginRight="5dp"
+          android:layout_marginBottom="5dp"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"/>
+
+      <Button
+          android:id="@+id/bt_analytics"
+          style="@style/MyDeaultBorderlessButton"
+          android:text="@string/bt_analytics"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="5dp"
+          android:layout_marginRight="5dp"
+          android:layout_marginBottom="5dp"
+          android:layout_weight="0"/>
+
+
+   </LinearLayout>
 
    <LinearLayout
        android:layout_width="match_parent"
