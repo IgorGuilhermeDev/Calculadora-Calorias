@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,6 +21,8 @@ import com.igor.caloriescalculator.adapters.MealListAdapter;
 import com.igor.caloriescalculator.fragments.dialogs.DatePickerDialogFragment;
 import com.igor.caloriescalculator.fragments.dialogs.StatisticsDialogFragment;
 import com.igor.caloriescalculator.fragments.interfaces.SetDateFromFragmentInterface;
+import com.igor.caloriescalculator.model.controllers.VisualizationMealsFragmentController;
+import com.igor.caloriescalculator.model.entities.Meal;
 import com.igor.caloriescalculator.model.repositories.MealRepository;
 
 import java.time.LocalDate;
@@ -28,6 +31,9 @@ import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.List;
 
 public class VisualizationMealsFragment extends Fragment implements SetDateFromFragmentInterface {
 
@@ -40,10 +46,13 @@ public class VisualizationMealsFragment extends Fragment implements SetDateFromF
     private Button btStatistics;
     private Button btBack;
 
+    private VisualizationMealsFragmentController controller;
     private final Integer ID_INITAL_DATE_PICKER = 1;
     private final Integer ID_FINAL_DATE_PICKER = 2;
 
     private static final String DATE_PATTERN = "dd/MM/yyyy";
+
+    private List<Meal> meals;
 
     public VisualizationMealsFragment(){
 
@@ -52,9 +61,10 @@ public class VisualizationMealsFragment extends Fragment implements SetDateFromF
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(this.repository == null){
-            this.repository = new MealRepository(getContext());
-        }
+        if(this.repository == null) this.repository = new MealRepository(getContext());
+        if(this.meals == null) this.meals = new ArrayList<>();
+        if(this.controller == null) this.controller = new VisualizationMealsFragmentController(getContext());
+
         DatePickerDialogFragment.setInterface(this);
     }
 
@@ -90,7 +100,8 @@ public class VisualizationMealsFragment extends Fragment implements SetDateFromF
     }
 
     private void setRecyclerViewContent(long beginDate, long endDate) {
-        this.rvMeals.setAdapter(new MealListAdapter(repository.selectAllTodayMeals(beginDate, endDate)));
+        this.meals = repository.selectAllTodayMeals(beginDate, endDate);
+        this.rvMeals.setAdapter(new MealListAdapter(meals));
     }
 
     private void dataBinding(){
@@ -119,6 +130,13 @@ public class VisualizationMealsFragment extends Fragment implements SetDateFromF
             public void onClick(View v) {
                 showStatisticsPopUp();
             }});
+
+        this.btBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().getSupportFragmentManager().popBackStack();
+            }
+        });
     }
 
     private void showDatePicker(int idDatePicker){
@@ -152,8 +170,22 @@ public class VisualizationMealsFragment extends Fragment implements SetDateFromF
     }
 
     private void showStatisticsPopUp(){
-        DialogFragment dialogFragment = new StatisticsDialogFragment(this.tvInitialDate.getText().toString(),
-                this.tvFinalDate.getText().toString());
-        dialogFragment.show(getParentFragmentManager(), "dialog_statistics");
+        double sum = this.controller.getSum(this.meals);
+        long days = calcDiffBetweenDates();
+        if(days >= 0) {
+            days ++ ;
+            double mediaForDay = this.controller.mediaCaloriesForDay(sum, days);
+            List<Meal> groupedMeals = this.controller.mediaCaloriesForDayAtMealType(this.meals, mediaForDay);
+
+            DialogFragment dialogFragment = new StatisticsDialogFragment(getContext(), this.tvInitialDate.getText().toString(),
+                    this.tvFinalDate.getText().toString(), sum, mediaForDay, groupedMeals);
+            dialogFragment.show(getParentFragmentManager(), "dialog_statistics");
+        }
+    }
+
+    private Long calcDiffBetweenDates(){
+         long days = ChronoUnit.DAYS.between(LocalDate.parse(this.tvInitialDate.getText().toString(), DateTimeFormatter.ofPattern("dd/MM/yyyy")),
+                LocalDate.parse(this.tvFinalDate.getText().toString(), DateTimeFormatter.ofPattern("dd/MM/yyy")));
+        return days;
     }
 }

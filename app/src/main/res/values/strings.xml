@@ -17,7 +17,12 @@
     <string name="bt_statistics">Estatísticas</string>
     <string name="bt_back">Voltar</string>
 
+    string>
+    <string name="media_of_calories">Media por dia:</string>
+
+
     <string name="sum_of_calories">Calorias Totais: </string>
+    <string name="mediar_of_calories_grouped_by_meal_type">Calorias por tipo de refeição:</string>
 
 
 </resources>
