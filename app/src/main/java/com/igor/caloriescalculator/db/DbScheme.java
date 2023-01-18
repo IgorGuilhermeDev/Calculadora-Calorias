@@ -1,5 +1,9 @@
 package com.igor.caloriescalculator.db;
 
+/**
+ * @author Igor Guilherme Almeida Rocha
+ * Classe que representa o esquema do banco.
+ */
 public class DbScheme {
 
     public static final String DB_NAME = "calories_calculator";

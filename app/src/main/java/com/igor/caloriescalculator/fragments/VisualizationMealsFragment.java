@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -35,6 +34,10 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Igor Guilherme Almeida Rocha
+ * Classe que representa a tela de visualização das refeições
+ */
 public class VisualizationMealsFragment extends Fragment implements SetDateFromFragmentInterface {
 
     private RecyclerView rvMeals;
@@ -79,6 +82,10 @@ public class VisualizationMealsFragment extends Fragment implements SetDateFromF
         return view;
     }
 
+    /**
+     * Inicializa os componentes
+     * @param view View inflada
+     */
     private void initUIComponents(View view){
         this.rvMeals = view.findViewById(R.id.rv_meals);
         this.ivInitialDatePicker = view.findViewById(R.id.iv_initial_date_picker);
@@ -90,7 +97,9 @@ public class VisualizationMealsFragment extends Fragment implements SetDateFromF
 
 
     }
-
+    /**
+     * Configura a RecyclerView
+     */
     private void configRecyclerView(){
         this.rvMeals.setHasFixedSize(true);
         this.rvMeals.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -99,17 +108,28 @@ public class VisualizationMealsFragment extends Fragment implements SetDateFromF
 
     }
 
+    /**
+     * Muda o conteudo da RecyclerView
+     * @param beginDate data de inicio
+     * @param endDate data final
+     */
     private void setRecyclerViewContent(long beginDate, long endDate) {
         this.meals = repository.selectAllTodayMeals(beginDate, endDate);
         this.rvMeals.setAdapter(new MealListAdapter(meals));
     }
 
+    /**
+     * Seta as datas com o dia de hoje
+     */
     private void dataBinding(){
         String today = getToday();
         this.tvInitialDate.setText(today);
         this.tvFinalDate.setText(today);
     }
 
+    /**
+     * Seta os eventos
+     */
     private void setEvents(){
         this.ivInitialDatePicker.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -139,6 +159,10 @@ public class VisualizationMealsFragment extends Fragment implements SetDateFromF
         });
     }
 
+    /**
+     * Mostra o dialog contendo o datepicker
+     * @param idDatePicker identificador do datepicker
+     */
     private void showDatePicker(int idDatePicker){
         DatePickerDialogFragment datePickerDialogFragment = new DatePickerDialogFragment();
         DatePickerDialogFragment.setInterface(this);
@@ -146,10 +170,18 @@ public class VisualizationMealsFragment extends Fragment implements SetDateFromF
         datePickerDialogFragment.show(getParentFragmentManager(), datePickerDialogFragment.getTag());
     }
 
+    /**
+     * Pega o dia de hoje
+     * @return Uma String representando a data de hoje no formato dd/MM/yyyy
+     */
     private String getToday(){
        return LocalDate.now().format(DateTimeFormatter.ofPattern(DATE_PATTERN));
     }
 
+    /**
+     * Muda a data, este método é chamado quando o usuário seleciona uma data no datepicker
+     * @param date nova data
+     */
     @Override
     public void setDate(String date) {
         final String EXTRACT_DATE_REGEX = "[0-9]\\s";
@@ -164,11 +196,20 @@ public class VisualizationMealsFragment extends Fragment implements SetDateFromF
 
     }
 
+    /**
+     * Transforma a data de String para long
+     * @param date Data em String
+     * @param time Tempo do dia
+     * @return data em long
+     */
     private long stringDateToLong(String date, LocalTime time){
         LocalDate formatedDate = LocalDate.parse(date, DateTimeFormatter.ofPattern(DATE_PATTERN));
         return ZonedDateTime.of(LocalDateTime.of(formatedDate,(time)), ZoneId.systemDefault()).toEpochSecond();
     }
 
+    /**
+     * Mostra a tela de estatisticas
+     */
     private void showStatisticsPopUp(){
         double sum = this.controller.getSum(this.meals);
         long days = calcDiffBetweenDates();
@@ -183,6 +224,10 @@ public class VisualizationMealsFragment extends Fragment implements SetDateFromF
         }
     }
 
+    /**
+     * Cacula a diferença em dias entre duas datas
+     * @return long representando o número de dias entre uma data e outra
+     */
     private Long calcDiffBetweenDates(){
          long days = ChronoUnit.DAYS.between(LocalDate.parse(this.tvInitialDate.getText().toString(), DateTimeFormatter.ofPattern("dd/MM/yyyy")),
                 LocalDate.parse(this.tvFinalDate.getText().toString(), DateTimeFormatter.ofPattern("dd/MM/yyy")));

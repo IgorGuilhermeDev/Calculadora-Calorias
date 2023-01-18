@@ -9,14 +9,12 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
 import com.igor.caloriescalculator.R;
 import com.igor.caloriescalculator.adapters.HourSpinnerAdapter;
@@ -30,6 +28,10 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+/**
+ * @author Igor Guilherme Almeida Rocha
+ * Classe que representa a tela de registro das refeições.
+ */
 public class RegisterMealFragment extends Fragment implements SetDateFromFragmentInterface {
 
     private TextView tvCaloriesLimit;
@@ -65,6 +67,10 @@ public class RegisterMealFragment extends Fragment implements SetDateFromFragmen
         return view;
     }
 
+    /**
+     * Inicializa os componentes
+     * @param view View inflada
+     */
     private void initializeUiComponents(View view){
         this.tvCaloriesLimit = view.findViewById(R.id.tv_calories_limit);
         this.tvSelectedDate = view.findViewById(R.id.tv_selected_date);
@@ -77,6 +83,9 @@ public class RegisterMealFragment extends Fragment implements SetDateFromFragmen
         this.btVisualization = view.findViewById(R.id.bt_visualization);
     }
 
+    /**
+     * Seta os eventos
+     */
     private void setEvents(){
         this.ivShowDatePicker.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,17 +108,26 @@ public class RegisterMealFragment extends Fragment implements SetDateFromFragmen
     }
 
 
+    /**
+     * Mostra o datepicker
+     */
     private void showDatePicker(){
         DatePickerDialogFragment datePickerDialogFragment = new DatePickerDialogFragment(this.tvSelectedDate.getText().toString());
         DatePickerDialogFragment.setInterface(this);
         datePickerDialogFragment.show(getParentFragmentManager(), datePickerDialogFragment.getTag());
     }
 
+    /**
+     * Carrega a data atual ao iniciar o app
+     */
     private void dataBinding(){
         this.tvSelectedDate.setText(LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
         updateCaloriesLimit();
     }
 
+    /**
+     * Insere uma refeição no banco
+     */
     private void insertMeal(){
         boolean isSuccessful = controller.insertMeal(this.etName.getText().toString(), this.etCalories.getText().toString(),
                 this.spClassifications.getSelectedItem(), this.tvSelectedDate.getText().toString(), this.spHour.getSelectedItem());
@@ -118,17 +136,26 @@ public class RegisterMealFragment extends Fragment implements SetDateFromFragmen
     }
 
 
+    /**
+     * Configura os spinners de hora e classificação
+     */
     private void configSpinners(){
         this.spHour.setAdapter(new HourSpinnerAdapter(getContext(),  new ArrayList<>(ListHours.getListHours())));
         this.spClassifications.setAdapter(new MealSpinnerAdapter(getContext()));
     }
 
+    /**
+     * Vai para a tela de visualização das refeições
+     */
     private void toVisualizationScreen() {
         getActivity().getSupportFragmentManager()
                 .beginTransaction().replace(R.id.fragment_main, new VisualizationMealsFragment())
                 .addToBackStack("main_screen").commit();
     }
 
+    /**
+     * Pesquisa as calorias ingeridas na data atual e atualiza o valor na UI do usuário
+     */
     private void updateCaloriesLimit(){
         String auxText = this.tvCaloriesLimit.getText().toString();
         auxText = auxText.replaceAll(LIMIT_CALORIES_REGEX,this.controller.getCaloriesFromThisDay());
@@ -136,6 +163,10 @@ public class RegisterMealFragment extends Fragment implements SetDateFromFragmen
     }
 
 
+    /**
+     * Muda a data da interface, este método é chamado quando o usuário escolhe uma data no datepicker.
+     * @param date nova data.
+     */
     @Override
     public void setDate(String date) {
         this.tvSelectedDate.setText(date);

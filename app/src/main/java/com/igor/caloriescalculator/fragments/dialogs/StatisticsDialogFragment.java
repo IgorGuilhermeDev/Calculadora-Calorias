@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,12 +14,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.igor.caloriescalculator.R;
-import com.igor.caloriescalculator.adapters.MealListAdapter;
 import com.igor.caloriescalculator.adapters.MinorMealListAdapter;
 import com.igor.caloriescalculator.model.entities.Meal;
 
 import java.util.List;
 
+/**
+ * @autor Igor Guilherme Almeida Rocha
+ * Classe que representa o dialog que mostra as estatisticas das refeições.
+ */
 public class StatisticsDialogFragment extends DialogFragment {
 
     private final String TEXT_AUX = "De";
@@ -62,6 +64,10 @@ public class StatisticsDialogFragment extends DialogFragment {
     }
 
 
+    /**
+     * Inicializa os componentes
+     * @param view View inflada
+     */
     private void initUIComponents(View view){
         this.tvDates = view.findViewById(R.id.tv_dates);
         this.tvSumOfCalories = view.findViewById(R.id.tv_sum_of_calories);
@@ -69,6 +75,9 @@ public class StatisticsDialogFragment extends DialogFragment {
         this.rvMeal = view.findViewById(R.id.rv_grouped_meals);
     }
 
+    /**
+     * Mostra as informações passadas como parâmetro
+     */
     private void dataBinding(){
         this.tvDates.setText(TEXT_AUX + " " + this.initialDate + " " + TEXT_AUX_2 + " " + this.finalDate);
         this.tvSumOfCalories.setText( " " + this.sum);

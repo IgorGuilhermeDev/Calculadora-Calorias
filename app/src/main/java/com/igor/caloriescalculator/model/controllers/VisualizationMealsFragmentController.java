@@ -10,6 +10,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * @autor Igor Guilherme Almeida Rocha
+ * @see com.igor.caloriescalculator.fragments.VisualizationMealsFragment
+ * Classe controladora da tela de visualização
+ */
 public class VisualizationMealsFragmentController {
 
     private Context context;

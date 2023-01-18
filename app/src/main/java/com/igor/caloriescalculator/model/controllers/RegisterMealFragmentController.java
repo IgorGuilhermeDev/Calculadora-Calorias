@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.igor.caloriescalculator.R;
 import com.igor.caloriescalculator.model.entities.Meal;
@@ -20,7 +19,11 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Vector;
 
-
+/**
+ * @author Igor Guilherme Almeida Rocha
+ * Controler do fragment de Registro
+ * @see com.igor.caloriescalculator.fragments.RegisterMealFragment
+ */
 public class RegisterMealFragmentController {
 
     private Context context;
@@ -36,6 +39,15 @@ public class RegisterMealFragmentController {
 
     }
 
+    /**
+     * Insere uma refeição no banco de dados
+     * @param foodName Nome da refeição
+     * @param calories Calorias da refeição
+     * @param mealClassification tipo da refeição
+     * @param date Data da injestão
+     * @param hour Hora da ingestão
+     * @return true se foi inserido com sucesso, false caso o contrário
+     */
     public boolean insertMeal(String foodName, String calories, Object mealClassification, String date, Object hour){
         ViewGroup toastContainer = this.currentView.findViewById(R.id.container_toast);
         View toastStyle = this.inflater.inflate(R.layout.custom_toast, toastContainer);
@@ -52,6 +64,12 @@ public class RegisterMealFragmentController {
 
     }
 
+    /**
+     * Formata a data e a hora de String para LocalDateTime
+     * @param date data em String
+     * @param hour hora em String
+     * @return Uma instância de LocalDateTime
+     */
     private LocalDateTime formatDate(String date, String hour){
         LocalDate localDate = LocalDate.parse(date, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         String formatedHours = hour.substring(0, 2).trim();
@@ -60,6 +78,10 @@ public class RegisterMealFragmentController {
         return LocalDateTime.of(localDate, localTime);
     }
 
+    /**
+     * Pega as calorias consumidas no dia atual
+     * @return As calorias consumidas no dia atual em String
+     */
     public String getCaloriesFromThisDay(){
         Vector<Meal> meals = repository.selectAllTodayMeals(
                 ZonedDateTime.of(LocalDateTime.now().with(LocalTime.MIN), ZoneId.systemDefault()).toEpochSecond(),
@@ -68,6 +90,11 @@ public class RegisterMealFragmentController {
         return String.valueOf(sumCalories(meals));
     }
 
+    /**
+     * Faz a soma das calorias
+     * @param meals Uma instância de vector, contendo as refeições
+     * @return a soma das calorias das refeições contidas em meals
+     */
     private Double sumCalories(Vector<Meal> meals){
         final double[] sum = {0.0};
         meals.forEach(

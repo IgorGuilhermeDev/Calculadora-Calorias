@@ -13,6 +13,10 @@ import androidx.fragment.app.DialogFragment;
 import com.igor.caloriescalculator.R;
 import com.igor.caloriescalculator.fragments.interfaces.SetDateFromFragmentInterface;
 
+/**
+ * @author Igor Guilherme Almeida Rocha
+ * Esta classe representa o fragment em que o datepicker é apresentado.
+ */
 public class DatePickerDialogFragment extends DialogFragment {
 
     private static SetDateFromFragmentInterface setDateInterface;
@@ -41,11 +45,17 @@ public class DatePickerDialogFragment extends DialogFragment {
         return view;
     }
 
+    /**
+     * Inicializa os componentes
+     * @param view View inflada
+     */
     private void initializeUiComponents(View view){
         this.dpInjestionDate = view.findViewById(R.id.dp_injestion_date);
     }
 
-
+    /**
+     * Seta o valor das datas com base na data anterior, caso houver
+     */
     private void dataBinding(){
 
         if(this.previusDate != null){
@@ -56,6 +66,9 @@ public class DatePickerDialogFragment extends DialogFragment {
         }
     }
 
+    /**
+     * Seta os eventos
+     */
     private void setEvents(){
         this.dpInjestionDate.setOnDateChangedListener(new DatePicker.OnDateChangedListener() {
             @Override
@@ -65,6 +78,12 @@ public class DatePickerDialogFragment extends DialogFragment {
         });
     }
 
+    /**
+     * Seleciona a data e fecha a janela do dilog.
+     * @param year Ano
+     * @param monthOfYear Mês
+     * @param dayOfMonth Dia
+     */
     private void selectDateAndCloseDialog( int year, int monthOfYear, int dayOfMonth ){
         String strMonth;
         String strDay;
@@ -81,11 +100,21 @@ public class DatePickerDialogFragment extends DialogFragment {
 
         this.dismiss();
     }
+
+    /**
+     * @see SetDateFromFragmentInterface
+     * Seta uma interface, a classe que implementará esta interface vai ter o seu campo de data modificado.
+     * @param setDateFromFragmentInterface classe que implmenta a interface setDateFromFramentIterface
+     */
     public static void setInterface(SetDateFromFragmentInterface setDateFromFragmentInterface){
         DatePickerDialogFragment.setDateInterface = setDateFromFragmentInterface;
 
     }
 
+    /**
+     * Caso a classe que "chamar" este dialog, tenha mais de um campo de data, precisamos saber qual deles modificar
+     * @param idDatePicker identificador do objeto que "chamou" este dialog
+     */
     public static void setChooseDate(int idDatePicker){
         DatePickerDialogFragment.chooseDatePicker = idDatePicker;
     }
