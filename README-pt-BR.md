@@ -1,5 +1,7 @@
 # Calculadora de Calorias
 
+[English Version](README.md)
+
 App Android para rastrear a ingestão diária de calorias.
 
 ## Funcionalidades

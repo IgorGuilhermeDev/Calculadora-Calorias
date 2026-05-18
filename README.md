@@ -1,5 +1,7 @@
 # Calories Calculator
 
+[Versão em Português](README-pt-BR.md)
+
 Android app to track daily calorie intake.
 
 ## Features
